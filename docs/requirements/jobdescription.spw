@@ -1,0 +1,39 @@
+@(coactive#jobDescription) =>
+    {
+        coactive{
+            software provider [
+                low code or no code architecture;
+                application development for clients;
+
+                #_values{
+                    collaboration;
+                    design;
+                    delivery;
+                    technical awareness;
+                    time management;
+                    communication;
+                    interpersonal skills;
+                };
+
+                #_technical{
+                    React;
+                    React Native;
+                    wireframes => code;
+                    performance optimizations;
+                    REST;
+                    modern frontend build mechanisms;
+                    technical requirements => code;
+
+
+                    #_values{
+                        design;
+                        mindfulness of future;
+                        low latency;
+                        reusability;
+                        performance;
+                    }
+                }
+
+            ]
+        }
+    };

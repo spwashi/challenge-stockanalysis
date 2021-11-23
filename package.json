@@ -1,0 +1,23 @@
+{
+  "name": "coding-assessment-coactive-typescript",
+  "version": "0.0.1",
+  "description": "An application for historical analysis of financial data.",
+  "main": " ",
+  "scripts": {
+    "test": "../coactive/application/typescript/node_modules/.bin/jest"
+  },
+  "author": "Sam Washington",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^4.5.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "@types/jest": "^27.0.3",
+    "@types/node": "^16.11.10",
+    "jest": "^27.3.1",
+    "ts-jest": "^27.0.7",
+    "ts-node": "^10.4.0"
+  }
+}
