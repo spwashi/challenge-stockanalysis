@@ -2,7 +2,7 @@
  * Methods for selecting or computing properties
  */
 
-import {AnalyzedRecord, Record} from './types';
+import {AnalyzedRecord, Record} from './types/types';
 import {calculateHighLowDifference, calculateProfitPotential} from './calculators';
 
 

@@ -2,15 +2,15 @@
   "name": "coding-assessment-coactive-typescript",
   "version": "0.0.1",
   "description": "An application for historical analysis of financial data.",
-  "main": "./out/index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "run": "export DATA_DIR=$(pwd)/_data; cross-env DATA_PATH=$DATA_DIR/data.dat DATA_CACHE_PATH=$DATA_DIR/data.json node ./out/index.js",
-    "test": "jest"
+    "execute": "node ./dist/index.js > _data/out.txt",
+    "execute-with-config": "export DATA_DIR=$(pwd)/_data; cross-env DATA_PATH=$DATA_DIR/data.dat DATA_CACHE_PATH=$DATA_DIR/data.json node ./dist/index.js > _data/out.txt",
+    "test": "jest ./src"
   },
   "author": "Sam Washington",
   "license": "ISC",
   "dependencies": {
-    "cross-env": "^7.0.3",
     "date-fns": "^2.26.0",
     "typescript": "^4.5.2"
   },
@@ -19,6 +19,7 @@
     "@babel/preset-env": "^7.16.4",
     "@types/jest": "^27.0.3",
     "@types/node": "^16.11.10",
+    "cross-env": "^7.0.3",
     "jest": "^27.3.1",
     "ts-jest": "^27.0.7",
     "ts-node": "^10.4.0"

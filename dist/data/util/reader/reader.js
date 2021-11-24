@@ -50,7 +50,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.writeCachedData = exports.readCachedData = exports.readData = void 0;
+exports.writeCachedData = exports.parseCachedData = exports.readData = void 0;
 var fs_1 = __importDefault(require("fs"));
 var date_fns_1 = require("date-fns");
 /**
@@ -62,7 +62,12 @@ var readData = function (filePath) { return __awaiter(void 0, void 0, void 0, fu
     return [2 /*return*/, fs_1.default.promises.readFile(filePath, 'utf-8')];
 }); }); };
 exports.readData = readData;
-var readCachedData = function (filePath) { return __awaiter(void 0, void 0, void 0, function () {
+/**
+ * Read data from a JSON file
+ *
+ * @param filePath
+ */
+var parseCachedData = function (filePath) { return __awaiter(void 0, void 0, void 0, function () {
     var rawCollection, _a, _b;
     return __generator(this, function (_c) {
         switch (_c.label) {
@@ -75,7 +80,12 @@ var readCachedData = function (filePath) { return __awaiter(void 0, void 0, void
         }
     });
 }); };
-exports.readCachedData = readCachedData;
+exports.parseCachedData = parseCachedData;
+/**
+ * Write data to a JSON file after having parsed it
+ * @param filePath
+ * @param obj
+ */
 var writeCachedData = function (filePath, obj) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
     switch (_a.label) {
         case 0: return [4 /*yield*/, fs_1.default.promises.writeFile(filePath, JSON.stringify(obj), 'utf-8')];

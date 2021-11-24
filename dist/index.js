@@ -44,6 +44,8 @@ var analysis_1 = require("./data/record/analysis");
 var collection_1 = require("./data/collection");
 var filter_1 = require("./data/util/filter");
 var util_1 = require("./data/record/util");
+var selectors_1 = require("./data/record/selectors");
+var date_fns_1 = require("date-fns");
 /**
  * Get data from a data file or a json file
  */
@@ -54,7 +56,7 @@ function getDataCollection() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 5]);
-                    return [4 /*yield*/, reader_1.readCachedData(fs_1.DATA_CACHE_PATH)];
+                    return [4 /*yield*/, reader_1.parseCachedData(fs_1.DATA_CACHE_PATH)];
                 case 1:
                     collection = _a.sent();
                     return [3 /*break*/, 5];
@@ -78,7 +80,7 @@ function getDataCollection() {
  */
 function answerQuestions() {
     return __awaiter(this, void 0, void 0, function () {
-        var collection, records_July2012;
+        var collection, records_July2012, recordsWithMaximumProfitPotential;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, getDataCollection()];
@@ -88,13 +90,31 @@ function answerQuestions() {
                         util_1.getMonthFilter(constants_1.MONTHS.JUL),
                         util_1.getYearFilter(2012),
                     ]));
+                    recordsWithMaximumProfitPotential = collection_1.selectRecordsWithMaximumProfitPotential(collection);
                     return [2 /*return*/, {
-                            a: collection_1.selectDateWithLargestPriceDifference(collection),
-                            b: collection_1.calculateAverageVolume(records_July2012),
-                            c: collection_1.selectRecordWithMaximumProfitPotential(collection),
+                            'The day with the largest variance between high and low': collection_1.selectDateWithLargestPriceDifference(collection),
+                            'The average volume for July 2012': collection_1.calculateAverageVolume(records_July2012),
+                            'Records with the maximum earning potential': 
+                            // !! note!! this comes with some major assumptions
+                            recordsWithMaximumProfitPotential.map(function (record) {
+                                var mpp = selectors_1.selectProfitPotential_mut(record);
+                                var date = date_fns_1.format(selectors_1.selectDate(record), constants_1.DATE_FORMAT);
+                                return "A maximum earning potential of \n\t\t$" + mpp + "\n\toccurred on \n\t\t" + date;
+                            }).join('\n\t---\n'),
                         }];
             }
         });
     });
 }
-answerQuestions().then(console.log);
+var logValues = function (obj) { return Object.entries(obj)
+    .map(function (_a) {
+    var key = _a[0], values = _a[1];
+    console.log(key);
+    if (Array.isArray(values)) {
+        values.map(function (value) { return console.log('\t', value); });
+    }
+    else {
+        console.log('\t', values);
+    }
+}); };
+answerQuestions().then(logValues);

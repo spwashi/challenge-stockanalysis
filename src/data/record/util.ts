@@ -1,4 +1,4 @@
-import {Record} from './types';
+import {Record} from './types/types';
 import {selectDate} from './selectors';
 
 export function getMonthFilter(month: number) {

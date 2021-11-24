@@ -22,7 +22,5 @@ var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DATA_CACHE_PATH = exports.DATA_PATH = void 0;
 var path = __importStar(require("path"));
-exports.DATA_PATH = (_a = process.env.DATA_PATH) !== null && _a !== void 0 ? _a : '';
-path.resolve(__dirname, '../../_data/data.dat');
+exports.DATA_PATH = (_a = process.env.DATA_PATH) !== null && _a !== void 0 ? _a : path.resolve(__dirname, '../../_data/data.dat');
 exports.DATA_CACHE_PATH = (_b = process.env.DATA_CACHE_PATH) !== null && _b !== void 0 ? _b : path.join(__dirname, '../../_data/data.json');
-console.log({ DATA_PATH: exports.DATA_PATH, DATA_CACHE_PATH: exports.DATA_CACHE_PATH });

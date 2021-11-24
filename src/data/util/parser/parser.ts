@@ -4,7 +4,7 @@
  * @param text
  * @param delimiter
  */
-import {AnalyzedRecord, Record} from '../../record/types';
+import {AnalyzedRecord, Record} from '../../record/types/types';
 import {passiveNoop, toDate, toNumber} from '../../../util/functions';
 import {RecordTransformer} from './types';
 

@@ -1,4 +1,4 @@
-import {Record} from '../../record/types';
+import {Record} from '../../record/types/types';
 
 /**
  * A function to run that takes a record and returns

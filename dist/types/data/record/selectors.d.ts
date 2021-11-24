@@ -1,7 +1,7 @@
 /**
  * Methods for selecting or computing properties
  */
-import { AnalyzedRecord, Record } from './types';
+import { AnalyzedRecord, Record } from './types/types';
 export declare const selectDate: (record: Record) => Date;
 export declare const selectVolume: (record: Record) => number;
 export declare const selectOpen: (record: Record) => number;

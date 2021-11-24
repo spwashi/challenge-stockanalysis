@@ -1,14 +1,14 @@
-import { AnalyzedRecord } from '../record/types';
+import { AnalyzedRecord } from '../record/types/types';
 /**
  * Given a collection of records, select the record with the biggest difference between "high" and "low"
  * @param collection
  */
-export declare function selectDateWithLargestPriceDifference(collection: AnalyzedRecord[]): AnalyzedRecord;
+export declare function selectDateWithLargestPriceDifference(collection: AnalyzedRecord[]): string;
 /**
  * Given a collection of records, select the record with the biggest difference between "high" and "low"
  * @param collection
  */
-export declare function selectRecordWithMaximumProfitPotential(collection: AnalyzedRecord[]): AnalyzedRecord;
+export declare function selectRecordsWithMaximumProfitPotential(collection: AnalyzedRecord[]): AnalyzedRecord[];
 /**
  * Given a set of records, calculate the average volume
  *

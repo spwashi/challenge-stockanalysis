@@ -1,4 +1,4 @@
-import { Record } from '../types';
+import { Record } from '../types/types';
 /**
  * Performs analysis on a single record in isolation
  *

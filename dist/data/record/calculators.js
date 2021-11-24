@@ -9,17 +9,27 @@ var selectors_1 = require("./selectors");
  * @param record
  */
 var calculateHighLowDifference = function (record) {
-    return functions_1.roundToPrecision(selectors_1.selectHigh(record) - selectors_1.selectLow(record));
+    var high = selectors_1.selectHigh(record);
+    var low = selectors_1.selectLow(record);
+    if (isNaN(high) || isNaN(low))
+        throw new Error('Improper input');
+    return functions_1.roundToPrecision(high - low);
 };
 exports.calculateHighLowDifference = calculateHighLowDifference;
 /**
- * Calculate the potential earnings in a given day
+ * Calculate the potential earnings in a given day.
+ *
+ * The potential earnings
  *
  * @todo verify this is the correct calculation
  *
  * @param record
  */
 var calculateProfitPotential = function (record) {
-    return selectors_1.selectHighLowDifference_mut(record) * selectors_1.selectVolume(record);
+    var volume = selectors_1.selectVolume(record);
+    if (isNaN(volume))
+        throw new Error('Improper input');
+    var multiplier = (selectors_1.selectOpen(record) - selectors_1.selectClose(record)) > 0 ? -1 : 1;
+    return selectors_1.selectHighLowDifference_mut(record) * volume * multiplier;
 };
 exports.calculateProfitPotential = calculateProfitPotential;

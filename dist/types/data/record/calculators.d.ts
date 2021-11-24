@@ -1,4 +1,4 @@
-import { Record } from './types';
+import { Record } from './types/types';
 /**
  * Calculate the difference between the day's High and Low values
  *
@@ -6,7 +6,9 @@ import { Record } from './types';
  */
 export declare const calculateHighLowDifference: (record: Record) => number;
 /**
- * Calculate the potential earnings in a given day
+ * Calculate the potential earnings in a given day.
+ *
+ * The potential earnings
  *
  * @todo verify this is the correct calculation
  *

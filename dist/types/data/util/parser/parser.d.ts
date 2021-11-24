@@ -4,7 +4,7 @@
  * @param text
  * @param delimiter
  */
-import { AnalyzedRecord } from '../../record/types';
+import { AnalyzedRecord } from '../../record/types/types';
 import { RecordTransformer } from './types';
 declare type ParsingOptions = {
     columnDelimiter?: string;
