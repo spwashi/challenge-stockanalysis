@@ -1,0 +1,1 @@
+This directory should contain a data.dat file that is a TSV representing the financial data to be used as an input to this application.

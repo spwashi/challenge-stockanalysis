@@ -1,0 +1,33 @@
+@(#requirements[functional]) =>
+    {
+        1:
+            (open, parse, cache)!(
+                provided financial data[
+                    date{Date};
+                    open{Decimal}[Money];
+                    high{Decimal}[Money];
+                    low{Decimal}[Money];
+                    close{Decimal}[Money];
+                    volume{Number};
+                ];
+            );
+        2:
+            answer ! (
+                ?(date with the largest variance between open and close);
+                ?(average volume for the month of July 2012);
+                ?(
+                    maximum profit potential [MPP];
+                    which days to have bought low and sold high to achieve MPP;
+                 );
+            );
+        3:
+            output answers ![to a text file]
+    };
+
+@(#requirements[technical]) =>
+    {
+        should run in nodejs;
+        input is a tab delimited file;
+        there should be a data layer;
+        output should be a text file;
+    };

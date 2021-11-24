@@ -1,55 +1,46 @@
-import {parseData} from './data/parser';
-import {readData} from './data/reader';
-import {DATA_PATH} from './constants/fs';
-import {AnalyzedDatum, Datum} from './data/types/types';
+import {parseData} from './data/util/parser/parser';
+import {readCachedData, readData, writeCachedData} from './data/util/reader/reader';
+import {DATA_CACHE_PATH, DATA_PATH} from './constants/fs';
 import {MONTHS} from './constants';
+import {analyzeRecord} from './data/record/analysis';
+import {calculateAverageVolume, selectDateWithLargestPriceDifference, selectRecordWithMaximumProfitPotential} from './data/collection';
+import {createAggregateFilter} from './data/util/filter';
+import {getMonthFilter, getYearFilter} from './data/record/util';
+import {AnalyzedRecord} from './data/record/types';
 
+/**
+ * Get data from a data file or a json file
+ */
+async function getDataCollection() {
+    let collection: AnalyzedRecord[];
 
-const selectVolume            = (datum: Datum) => datum.volume;
-const roundToPrecision        = (num: number, precision = 100) => Math.round(precision * (num)) / precision;
-const selectHighLowDifference = (d: Datum) => roundToPrecision(d.high - d.low);
-
-
-function getMonthFilter(month: number) {
-    return (datum: Datum) => datum.date?.getMonth() === month;
+    try {
+        collection = await readCachedData(DATA_CACHE_PATH);
+    } catch (e) {
+        const parse = (text: string) => parseData(text, analyzeRecord);
+        collection  = await readData(DATA_PATH).then(parse);
+        await writeCachedData(DATA_CACHE_PATH, collection);
+    }
+    return collection;
 }
-function getYearFilter(year: number) {
-    return (datum: Datum) => datum.date?.getFullYear() === year;
-}
-function calculateAverageVolume(data: AnalyzedDatum[], filters: ((d: Datum) => boolean)[] = []) {
-    const filter            = (d: AnalyzedDatum) => filters.reduce((isTruthy, filter) => isTruthy ? filter(d) : false, true);
-    const dataPointsInRange = data.filter(filter);
-    const addVolumesReducer = (sum: number, datum: AnalyzedDatum) => sum + (selectVolume(datum) ?? 0);
-    const sumFromJuly2012   = dataPointsInRange.reduce(addVolumesReducer, 0);
-    const count             = dataPointsInRange.length ?? 1;
-    return roundToPrecision(sumFromJuly2012 / count);
-}
-
-function analyzeData(data: Datum[]): AnalyzedDatum[] {
-    return data.map(datum => {
-        const highLowDifference = selectHighLowDifference(datum);
-        const profitPotential   = highLowDifference * selectVolume(datum);
-        return {
-            ...datum,
-            highLowDifference,
-            profitPotential,
-        };
-    });
-}
-function getDateWithBiggestHighLowDifference(processedData: AnalyzedDatum[]) {
-    return processedData.sort(({highLowDifference: a}, {highLowDifference: b}) => b - a)[0];
-}
+/**
+ * This is the main function, answers questions about the dataset
+ */
 async function answerQuestions() {
-    const data = await readData(DATA_PATH).then(parseData).then(analyzeData);
+    const collection =
+              await getDataCollection();
+
+    const records_July2012 =
+              collection.filter(createAggregateFilter([
+                                                          getMonthFilter(MONTHS.JUL),
+                                                          getYearFilter(2012),
+                                                      ]));
+
 
     return {
-        a: getDateWithBiggestHighLowDifference(data),
-        b: calculateAverageVolume(data,
-                                  [
-                                      getMonthFilter(MONTHS.JUL),
-                                      getYearFilter(2012),
-                                  ]),
-        c: '',
+        a: selectDateWithLargestPriceDifference(collection),
+        b: calculateAverageVolume(records_July2012),
+        c: selectRecordWithMaximumProfitPotential(collection),
     }
 }
 
